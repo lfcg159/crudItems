@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="prueba curso html platzi" />
+    <meta name="robots" content="index,follow" />
+    <title>Reto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="reto.css" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <nav></nav>
+    </header>
+
+    <main>
+        <section class="form--container">
+            <h1>Formulario Productos</h1>
+            <section class="cronometer">
+                <section>
+                    <figure>
+                        <img src="img/cronometer.png" alt="cronometer icon" />
+                        <figcaption>cronometer</figcaption>
+                    </figure>
+                </section>
+                <section id="clock_display" class="clock" onload="showTime()">reloj</section>
+                <section id="timer" onload="countTimer()">timer</section>
+            </section>
+            <section class="form--product">
+                
+                <section class="section--text">
+                    <form action="" name="form">
+                        <div class="div--form">
+                            <label for="product_name">
+                                <span>Nombre Producto</span>
+                                <input type="text" id="product_name" name="product_name" placeholder="Producto" autocomplete="name" required>
+                            </label>
+                        </div>
+    
+                        <div class="div--form">
+                            <label for="responsible_name">
+                                <span>Operario Responsable</span>
+                                <input type="text" id="responsible_name" name="responsible_name" placeholder="Operario" autocomplete="name" required>
+                            </label>
+                        </div>
+
+                        </section>
+
+                        <section class="section--list-box">
+                            <div class="div--form">
+                                <span>Tipo de empaque</span>
+                                <select name="packages">
+                                    <option value="Bulto 25kg">Bulto 25kg</option>
+                                    <option value="Bulto 10kg">Bulto 10kg</option>
+                                    <option value="Tarro 2kg">Tarro 2kg</option>
+                                    <option value="Liquido 100ml">Liquido 100ml</option>
+                                </select>
+                            </div>
+
+                            <div class="div--form">
+                                <span>Tipo de producto</span>
+                                <input list="types" name="type">
+                                <datalist id="types">
+                                    <option value="Mineral"></option>
+                                    <option value="Vitamina"></option>
+                                    <option value="Premezcla"></option>
+                                    <option value="Producto Terminado"></option>
+                                </datalist>
+                            </div>
+                        </section>
+
+                        <input class="button--submit" type="submit" id="save_product" name="save" value="Agregar">
+                        <input class="button--submit" type="submit" id="save_changes" name="update" value="Guardar Cambios" hidden="true">
+                </form>
+
+                
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <span>Editar según la posición</span>
+                <input type="text" id="edit_input" name="edit_input" placeholder="ID del producto a editar">
+                <button id="edit_button">Editar</button>
+            </section>
+
+            <section>
+                <span>Eliminar según la posición</span>
+                <input type="text" id="delete_input" name="delete_input" placeholder="ID del producto a eliminar">
+                <button id="delete_button">Eliminar</button>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>Lista Productos</h1>
+                <p id="p1">holi</p>
+            </section>
+
+            <section id="data-table">
+                <table id="html-data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre producto</th>
+                            <th>Tipo de producto </th>
+                            <th>Fecha de producción</th>
+                            <th>Operario Responsable</th>
+                            <th>Tiempo de producción</th>
+                            <th>Tipo de empaque</th>
+                        </tr>
+                    </thead>
+                </table>    
+            </section>
+            
+
+        </section>       
+    </main>
+    <script src="index.js"></script>
+</body>
+
