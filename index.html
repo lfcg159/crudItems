@@ -8,6 +8,7 @@
     <title>Reto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="reto.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 
@@ -18,16 +19,17 @@
     </header>
 
     <main>
-        <section class="form--container">
+        <section id="form--container">
             <h1>Formulario Productos</h1>
             <section class="cronometer">
-                <div>
+                <!-- <div>
                     <figure>
                         <img src="img/cronometer.png" alt="cronometer icon" />
-                        <!-- <figcaption>cronometer</figcaption> -->
+                        <figcaption>cronometer</figcaption>
                     </figure>
-                </div>
+                </div> -->
                 <!-- <section id="clock_display" class="clock" onload="showTime()">reloj</section> -->
+                <div><span class="material-symbols-outlined">timer</span></div>
                 <div id="timer" onload="countTimer()">timer</div>
             </section>
             <section >
@@ -75,11 +77,11 @@
                 </form>
 
 
-            </sect ion>
+            </section>
 
         </section>
 
-        <section>
+        <!-- <section id="UD--container">
             <div>
                 <span>Editar según la posición</span>
                 <input type="text" id="edit_input" name="edit_input" placeholder="ID del producto a editar">
@@ -91,13 +93,13 @@
                 <input type="text" id="delete_input" name="delete_input" placeholder="ID del producto a eliminar">
                 <button id="delete_button">Eliminar</button>
             </div>
-        </section>
+        </section> -->
 
-        <section>
-            <section>
+        <section id="table--container">
+            <!-- <section>
                 <h1>Lista Productos</h1>
                 <p id="p1">holi</p>
-            </section>
+            </section> -->
 
             <section id="data-table">
                 <table id="html-data-table">
@@ -112,6 +114,16 @@
                             <th>Tipo de empaque</th>
                         </tr>
                     </thead>
+
+                    <tr>
+                        <td><span class="material-symbols-outlined">edit_note</span></td>
+                        <th>Nombre producto</th>
+                        <th>Tipo de producto </th>
+                        <th>Fecha de producción</th>
+                        <th>Operario Responsable</th>
+                        <th>Tiempo de producción</th>
+                        <th>Tipo de empaque</th>
+                    </tr>
                 </table>
             </section>
 

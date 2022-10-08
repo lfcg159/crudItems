@@ -10,6 +10,7 @@ let productId;
 let products = [];
 let products2= ["uva", "pera", "manzana"];
 let targetId;
+let targetIdActionsTable;
 let targetProduct;
 let autoIncrement = 1;
 let flagEditButton= 0; 
@@ -22,6 +23,13 @@ $(document).ready(function() { // esta función es para evitar que haya problema
         // $("#p1").text(products);
     });
 
+});
+
+$(document).click(function(event) { //función para saber a qué elemento se le dio click
+    targetIdActionsTable = $(event.target).text(); //investigar sobre text()
+    let evento = event.target;
+    console.log(targetIdActionsTable);
+    console.log(evento);
 });
 
 form.onsubmit = function(e){
@@ -59,6 +67,7 @@ form.onsubmit = function(e){
             $("#save_product").toggle();
             $("#save_changes").toggle();
             flagEditButton = 0;
+            form.reset(); // una forma de limpiar los campos
         }
     }
 }
@@ -107,9 +116,32 @@ $("#delete_button").click(function() {
     targetId = document.getElementById("delete_input").value;
     deleteProductById(parseInt(targetId), products); // falta pedir confirmación para eliminar
     console.log(products);
-    // $("#p1").text(JSON.stringify(products)); // 'convertir' un objeto o JSON en string
     renderDataInTheTable(products);
 });
+
+// $(".span--edit").click(function() { // se debe usar una promesa
+ 
+//     // $("#save_product").toggle();
+//     // $("#save_changes").toggle();
+
+//     arraySpan = document.getElementsByClassName("span--edit");
+//     // targetId = $(event.target).text();
+//     // arraySpan.forEach() //posible solución: posición de la tabla -1 para compar con el indice en el arreglo
+//     // console.log(targetId);
+//     // $("#p1").text(targetId);
+//     // let editedProduct = editProduct(parseInt(targetId));
+//     // editProductById(targetId, editedProduct, products);
+//     // console.log(products);
+//     // renderDataInTheTable(products);
+//     // console.log(targetIdActionsTable);
+//     // $("#p1").text(targetIdActionsTable);
+//     // let editedProduct = editProduct(parseInt(targetIdActionsTable));
+//     // editProductById(targetIdActionsTable, editedProduct, products);
+//     // console.log(products);
+//     // renderDataInTheTable(products);
+
+// });
+    
 
 // $("#edit_button").click(function() {
 //     document.getElementById("#save_changes_button").hidden = "false";
@@ -153,8 +185,8 @@ function showTime(){
     s = (s < 10) ? "0" + s : s;
     
     productionDate = h + ":" + m + ":" + s + " " + session;
-    document.getElementById("clock_display").innerText = productionDate;
-    document.getElementById("clock_display").textContent = productionDate;
+    // document.getElementById("clock_display").innerText = productionDate;
+    // document.getElementById("clock_display").textContent = productionDate;
     
     setTimeout(showTime, 1000);
 }
@@ -266,13 +298,37 @@ function editProductById(id, editedProduct, productsList=[]){
     alert("Producto modificado exitosamente");
 }
 
+function editByIcon(targetId){
+    console.log(targetId);
+    $("#p1").text(targetId);
+    let editedProduct = editProduct(parseInt(targetId));
+    editProductById(targetId, editedProduct, products);
+    console.log(products);
+    renderDataInTheTable(products);
+    cleanFormField();
+}
+
+function deleteByIcon(targetId){
+    deleteProductById(parseInt(targetId), products); // falta pedir confirmación para eliminar
+    console.log(products);
+    renderDataInTheTable(products);
+
+}   
+
 // Duplica el contenido en cada llamado revisar logica
 function renderDataInTheTable(products){
     let mytable = document.getElementById("html-data-table");
     // la siguiente linea soluciona el problema de duplicados
-    mytable.innerHTML = "<thead><tr><th>ID</th><th>Nombre producto</th><th>Tipo de producto</th><th>Fecha de producción</th><th>Operario Responsable</th><th>Tiempo de producción</th><th>Tipo de empaque</th></tr></thead>"
+    mytable.innerHTML = "<thead><tr><th>Editar</th><th>Borrar</th><th>ID</th><th>Nombre producto</th><th>Tipo de producto</th><th>Fecha de producción</th><th>Operario Responsable</th><th>Tiempo de producción</th><th>Tipo de empaque</th></tr></thead>"
     products.forEach(product => {
         let newRow = document.createElement("tr");
+        let cellSpanEdit = document.createElement("td");
+        cellSpanEdit.innerHTML = `<span class="material-symbols-outlined"" onclick="editByIcon(${product.id})">edit_note</span>`
+        newRow.appendChild(cellSpanEdit);
+        let cellSpanDelete = document.createElement("td");
+        cellSpanDelete.innerHTML = `<span class="material-symbols-outlined" onclick="deleteByIcon(${product.id})">delete</span>`
+        newRow.appendChild(cellSpanDelete);
+
         Object.values(product).forEach((value) => {
             let cell = document.createElement("td");
             cell.innerText = value;
@@ -282,12 +338,29 @@ function renderDataInTheTable(products){
     });
 }
 
-function fillTable(products){
-    let table = ""
+function findElementClick() {
+    let text;
+
+    $(document).click(function(event) { //función para saber a qué elemento se le dio click
+        text = $(event.target).text(); //investigar sobre text()
+        let evento = event.target;
+        // console.log(text);
+        // console.log(evento);
+    });
+
+    return text;
 }
 
+function cleanFormField(){ // se puede hacer con un queryselector
+    let product = document.getElementById("product_name");
+    product.value=""; 
+    let responsible = document.getElementById("responsible_name");
+    responsible.value="";
+    $('[name="type"]').val("");
+
+}
 
 // https://codepen.io/afarrar/pen/JRaEjP
 // https://stackoverflow.com/questions/18239430/cannot-set-property-innerhtml-of-null
 // https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-
+// https://bobbyhadz.com/blog/javascript-clear-input-field-after-submit
