@@ -10,6 +10,7 @@ let productId;
 let products = [];
 let products2= ["uva", "pera", "manzana"];
 let targetId;
+let targetIdIcon;
 let targetIdActionsTable;
 let targetProduct;
 let autoIncrement = 1;
@@ -25,17 +26,17 @@ $(document).ready(function() { // esta función es para evitar que haya problema
 
 });
 
-$(document).click(function(event) { //función para saber a qué elemento se le dio click
-    targetIdActionsTable = $(event.target).text(); //investigar sobre text()
-    let evento = event.target;
-    console.log(targetIdActionsTable);
-    console.log(evento);
-});
+// $(document).click(function(event) { //función para saber a qué elemento se le dio click
+//     targetIdActionsTable = $(event.target).text(); //investigar sobre text()
+//     let evento = event.target;
+//     console.log(targetIdActionsTable);
+//     console.log(evento);
+// });
 
 form.onsubmit = function(e){
     
     e.preventDefault();
-    console.log(e.submitter.id);  
+    // console.log(e.submitter.id);  
     // createProduct();
     // console.log(products);
     // $("#p1").text(JSON.stringify(products)); // 'convertir' un objeto o JSON en string
@@ -47,7 +48,7 @@ form.onsubmit = function(e){
         // $("#p1").text(JSON.stringify(products)); // 'convertir' un objeto o JSON en string
         autoIncrement = autoIncrement + 1;
         renderDataInTheTable(products);
-    } else {
+    } else if (e.submitter.id === "save_changes") {
         targetId = parseInt(document.getElementById("edit_input").value);
         const index = products.findIndex(product => product.id === targetId);
 
@@ -69,6 +70,15 @@ form.onsubmit = function(e){
             flagEditButton = 0;
             form.reset(); // una forma de limpiar los campos
         }
+    } else { //submitter confirm changes
+        let editedProduct = editProduct(targetIdIcon);
+        editProductById(targetIdIcon, editedProduct, products);
+        console.log(products);
+        renderDataInTheTable(products);
+        cleanFormField();
+        flagEditButton = 0;
+        $("#confirm_changes").toggle();
+        $("#save_product").toggle();
     }
 }
 
@@ -285,8 +295,14 @@ function deleteProductById(id, productsList=[]){
         throw new Error(message="no se encontró el producto");
         
     } else {
-        productsList.splice(index, 1);
-        alert("Producto eliminado exitosamente");
+        let confirmDelete = confirm("¿Está seguro de eliminar este producto?");
+        if (confirmDelete){
+            productsList.splice(index, 1);
+            alert("Producto eliminado exitosamente");
+        }else{
+            alert("Hubo un error");
+        }
+
     }
 
 }
@@ -298,18 +314,42 @@ function editProductById(id, editedProduct, productsList=[]){
     alert("Producto modificado exitosamente");
 }
 
-function editByIcon(targetId){
-    console.log(targetId);
-    $("#p1").text(targetId);
-    let editedProduct = editProduct(parseInt(targetId));
-    editProductById(targetId, editedProduct, products);
-    console.log(products);
-    renderDataInTheTable(products);
-    cleanFormField();
+function editByIcon(targetId,targetProduct,targetResponsible,targetType){
+    
+    if (flagEditButton === 0){
+        
+        flagEditButton= 1;
+        let product = document.getElementById("product_name");
+        product.value = targetProduct; 
+        let responsible = document.getElementById("responsible_name");
+        responsible.value = targetResponsible;
+        $('[name="type"]').val(targetType);
+        console.log(targetId, targetProduct, targetResponsible, targetType);
+        
+        if (products.length === 0){
+            alert("La lista de productos está vacia");
+            throw new Error(message="Arreglo de productos vacio");
+
+        } else{
+            $("#save_product").toggle();
+            $("#confirm_changes").toggle();
+            targetIdIcon = targetId;
+        }  
+
+    } else {
+        alert("Debe terminar la edición actual antes de una nueva edición");
+        throw new Error(message="Edición de producto sin terminar");
+    }    
+
+    // let editedProduct = editProduct(parseInt(targetId));
+    // editProductById(targetId, editedProduct, products);
+    // console.log(products);
+    // renderDataInTheTable(products);
+    // cleanFormField();
 }
 
 function deleteByIcon(targetId){
-    deleteProductById(parseInt(targetId), products); // falta pedir confirmación para eliminar
+    deleteProductById(parseInt(targetId), products); 
     console.log(products);
     renderDataInTheTable(products);
 
@@ -323,7 +363,7 @@ function renderDataInTheTable(products){
     products.forEach(product => {
         let newRow = document.createElement("tr");
         let cellSpanEdit = document.createElement("td");
-        cellSpanEdit.innerHTML = `<span class="material-symbols-outlined"" onclick="editByIcon(${product.id})">edit_note</span>`
+        cellSpanEdit.innerHTML = `<span class="material-symbols-outlined" onclick="editByIcon(${product.id},'${product.name}','${product.responsible}','${product.type}')">edit_note</span>`
         newRow.appendChild(cellSpanEdit);
         let cellSpanDelete = document.createElement("td");
         cellSpanDelete.innerHTML = `<span class="material-symbols-outlined" onclick="deleteByIcon(${product.id})">delete</span>`
