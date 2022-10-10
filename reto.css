@@ -13,10 +13,10 @@ body{
     background-image: url("https://cdn1.intriper.com/wp-content/uploads/2020/12/24082056/sebastian-unrau-sp-p7uuT0tw-unsplash-1.jpg");
 }
 
-img{
+/* img{
     height: 25px;
     width: 25px;
-}
+} */
 
 #form--container{
     margin-top: 20px;
@@ -48,13 +48,32 @@ img{
 
 .form--product{
     display: grid;
-    grid-template-areas: 
+    /* grid-template-areas: 
         'product responsible'
         'package type'
-        'submit submit';
- 
-    width: 100vw;
+        'submit submit'; */
+    grid-template-columns: repeat(2,49%);
+    grid-gap: 30px;    
 }
+
+@media (max-width: 600px) {
+    .form--product{
+        grid-template-columns: repeat(1, 100%);
+        grid-gap: 5px;
+    }
+    #table--container{
+            overflow-y: scroll;
+            height: 300px;
+            background-color: rgba(250, 250, 250, 0.8);
+            padding:0px !important;
+            border-radius: 10px;
+            border: 2px solid white;
+    }
+    /* .tablecontainer::-webkit-scrollbar {
+        height: 5px;
+    } */
+}
+
 
 /* .div--form{
     display: inline-block;
@@ -64,7 +83,7 @@ img{
     display: block;
 }
 
-#div--product{
+/* #div--product{
     grid-area: product;
 }
 
@@ -78,7 +97,7 @@ img{
 
 #div--type{
     grid-area: type;
-}
+} */
 
 .button--submit{
    /* margin-top: 1rem;
@@ -89,7 +108,18 @@ img{
    border: 1px solid black;
    border-radius: 5px;
    color: white;
-   grid-area: submit;
+   max-width: 200px;
+   justify-content: center;
+   align-items: center;
+   
+   /* grid-area: submit; */
+}
+
+.center--element{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cronometer{
@@ -133,11 +163,21 @@ img{
     letter-spacing: 7px;
 }
 
-#data-table {
+/* #data-table {
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 0 auto;
-}
+} */
+
+
+
+#html-data-table, th{
+    border: 2px solid black;
+    text-align: center;
+    padding: 5px;
+    border-collapse: collapse ; 
+  }
+
 
 .material-symbols-outlined{
     cursor: pointer;
@@ -146,4 +186,18 @@ img{
 .material-symbols-outlined:hover{
     transform: scale(1.3);
     border-radius: 50%;
+}
+
+.navbar{
+    background-color: transparent !important;
+}
+a.nav-link{
+    color: white !important;
+}
+.navbar-toggler:active{
+    background-color: rgba(0, 0, 0, 0.2);
+    border-color: rgb(255 243 110);
+}
+.navbar-toggler:focus{
+    background-color: rgba(0, 0, 0, 0.2);
 }

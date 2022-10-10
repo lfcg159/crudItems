@@ -359,7 +359,7 @@ function deleteByIcon(targetId){
 function renderDataInTheTable(products){
     let mytable = document.getElementById("html-data-table");
     // la siguiente linea soluciona el problema de duplicados
-    mytable.innerHTML = "<thead><tr><th>Editar</th><th>Borrar</th><th>ID</th><th>Nombre producto</th><th>Tipo de producto</th><th>Fecha de producción</th><th>Operario Responsable</th><th>Tiempo de producción</th><th>Tipo de empaque</th></tr></thead>"
+    mytable.innerHTML = "<thead><tr><th colspan='2'>Acciones</th><th>ID</th><th>Nombre producto</th><th>Tipo de producto</th><th>Fecha de producción</th><th>Operario Responsable</th><th>Tiempo de producción</th><th>Tipo de empaque</th></tr></thead>"
     products.forEach(product => {
         let newRow = document.createElement("tr");
         let cellSpanEdit = document.createElement("td");
