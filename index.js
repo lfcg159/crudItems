@@ -335,6 +335,7 @@ function editByIcon(targetId,targetProduct,targetResponsible,targetType){
             $("#confirm_changes").toggle();
             targetIdIcon = targetId;
             
+            
             // el error de no mostrar el botón oculto lo genera el css de bootstrap
             // let confirmButton = document.getElementById("save_product");
             // console.log(confirmButton);
