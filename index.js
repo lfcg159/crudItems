@@ -44,7 +44,7 @@ form.onsubmit = function(e){
     if (e.submitter.id === "save_product") {
         // createProduct((autoIncrement.toString()));
         createProduct(autoIncrement);
-        console.log(products);
+        // console.log(products);
         // $("#p1").text(JSON.stringify(products)); // 'convertir' un objeto o JSON en string
         autoIncrement = autoIncrement + 1;
         renderDataInTheTable(products);
@@ -58,11 +58,11 @@ form.onsubmit = function(e){
             
         } else {
             targetProduct = products[index]; // esto es redundante, la logica de este metodo debe ser revisada
-            console.log(targetProduct);
+            // console.log(targetProduct);
         
             let editedProduct = editProduct(targetId);
             editProductById(targetId, editedProduct, products);
-            console.log(products);
+            // console.log(products);
             // $("#p1").text(JSON.stringify(products)); // 'convertir' un objeto o JSON en string
             renderDataInTheTable(products);
             $("#save_product").toggle();
@@ -73,7 +73,7 @@ form.onsubmit = function(e){
     } else { //submitter confirm changes
         let editedProduct = editProduct(targetIdIcon);
         editProductById(targetIdIcon, editedProduct, products);
-        console.log(products);
+        // console.log(products);
         renderDataInTheTable(products);
         cleanFormField();
         flagEditButton = 0;
@@ -253,7 +253,7 @@ function createProduct(id){
         package: selectedPackage,
     };
     
-    console.table(product);
+    // console.table(product);
 
     products = [...products, product];
 }
@@ -324,7 +324,7 @@ function editByIcon(targetId,targetProduct,targetResponsible,targetType){
         let responsible = document.getElementById("responsible_name");
         responsible.value = targetResponsible;
         $('[name="type"]').val(targetType);
-        console.log(targetId, targetProduct, targetResponsible, targetType);
+        // console.log(targetId, targetProduct, targetResponsible, targetType);
         
         if (products.length === 0){
             alert("La lista de productos está vacia");
@@ -334,6 +334,18 @@ function editByIcon(targetId,targetProduct,targetResponsible,targetType){
             $("#save_product").toggle();
             $("#confirm_changes").toggle();
             targetIdIcon = targetId;
+            
+            // el error de no mostrar el botón oculto lo genera el css de bootstrap
+            // let confirmButton = document.getElementById("save_product");
+            // console.log(confirmButton);
+            // let divButton = document.createElement("div");
+            // console.log(divButton);
+            // divButton.innerHTML = `<input class='button--submit' type='submit' id='confirm_changes' name='updateIcon' value='Confirmar Cambios'>`;
+            // let parentButton = confirmButton.parentNode;
+            // parentButton.innerHTML += `<input class='button--submit' type='submit' id='confirm_changes' name='updateIcon' value='Confirmar Cambios'>`;
+            // console.log(parentButton);
+            // $("#save_product").toggle();
+            // targetIdIcon = targetId;
         }  
 
     } else {

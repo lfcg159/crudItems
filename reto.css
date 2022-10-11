@@ -53,7 +53,7 @@ body{
         'package type'
         'submit submit'; */
     grid-template-columns: repeat(2,49%);
-    grid-gap: 30px;    
+    grid-gap: 10px;
 }
 
 @media (max-width: 600px) {
